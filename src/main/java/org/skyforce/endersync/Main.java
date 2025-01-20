@@ -32,7 +32,7 @@ public final class Main extends JavaPlugin {
             getLogger().info("Successfully connected to the database.");
             databaseTableManager.createTableIfNotExists();
         } catch (SQLException e) {
-            getLogger().severe("This server is not connected to the database: " + e.getMessage());
+            getLogger().warning("This server is not connected to the database: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
