@@ -57,7 +57,7 @@ public class EnderChestManager {
     private ItemStack[] decodeItems(String data) {
         Type listType = new TypeToken<List<ItemData>>() {}.getType();
         List<ItemData> itemDataList = gson.fromJson(data, listType);
-        ItemStack[] items = new ItemStack[27]; // Assuming Ender Chest has 27 slots
+        ItemStack[] items = new ItemStack[27];
         for (ItemData itemData : itemDataList) {
             items[itemData.getSlot()] = itemData.getItemStack();
         }
