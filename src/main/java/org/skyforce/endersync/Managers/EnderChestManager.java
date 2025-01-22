@@ -1,11 +1,12 @@
 package org.skyforce.endersync.Managers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.skyforce.endersync.models.ItemData;
+import org.skyforce.endersync.Data.ItemData;
 
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
@@ -15,10 +16,12 @@ import java.util.List;
 
 public class EnderChestManager {
     private final DatabaseManager databaseManager;
-    private final Gson gson = new Gson();
+    private final Gson gson;
 
     public EnderChestManager(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+        this.gson = new GsonBuilder()
+                .create();
     }
 
     public void saveEnderChest(Player player) throws SQLException {
@@ -45,7 +48,7 @@ public class EnderChestManager {
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
             if (item != null) {
-                itemDataList.add(new ItemData(item.getType().name(), item.getAmount(), i));
+                itemDataList.add(new ItemData(item, i));
             }
         }
         return gson.toJson(itemDataList);
@@ -56,7 +59,7 @@ public class EnderChestManager {
         List<ItemData> itemDataList = gson.fromJson(data, listType);
         ItemStack[] items = new ItemStack[27]; // Assuming Ender Chest has 27 slots
         for (ItemData itemData : itemDataList) {
-            items[itemData.getSlot()] = new ItemStack(org.bukkit.Material.valueOf(itemData.getName()), itemData.getAmount());
+            items[itemData.getSlot()] = itemData.getItemStack();
         }
         return items;
     }
