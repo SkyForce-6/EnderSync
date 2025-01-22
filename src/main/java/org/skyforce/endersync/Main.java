@@ -1,6 +1,7 @@
 package org.skyforce.endersync;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.skyforce.endersync.EventHandler.InventoryClickEventHandler;
 import org.skyforce.endersync.EventHandler.InventoryCloseEventHandler;
@@ -29,10 +30,10 @@ public final class Main extends JavaPlugin {
 
         try {
             databaseManager.connect();
-            getLogger().info("Successfully connected to the database.");
+            getLogger().info("\u001B[32m" + "Erfolgreich mit der Datenbank verbunden." + "\u001B[0m");
             databaseTableManager.createTableIfNotExists();
         } catch (SQLException e) {
-            getLogger().warning("This server is not connected to the database: " + e.getMessage());
+            getLogger().warning("\u001B[31m" + "Dieser Server ist nicht mit der Datenbank verbunden: " + e.getMessage() + "\u001B[0m");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }

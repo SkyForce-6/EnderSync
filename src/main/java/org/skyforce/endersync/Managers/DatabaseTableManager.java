@@ -17,9 +17,9 @@ public class DatabaseTableManager {
                 ");";
         try {
             databaseManager.executeUpdate(createTableSQL);
-            System.out.println("Table 'enderchests' successfully created or already exists.");
+            System.out.println("Tabelle 'enderchests' erfolgreich erstellt oder existiert bereits.");
         } catch (SQLException e) {
-            System.err.println("Error creating table: " + e.getMessage());
+            System.err.println("Fehler beim Erstellen der Tabelle: " + e.getMessage());
         }
     }
 }
