@@ -20,9 +20,13 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        String url = getConfig().getString("database.url");
+        String host = getConfig().getString("database.host");
+        String port = getConfig().getString("database.port");
+        String dbName = getConfig().getString("database.databasename");
         String user = getConfig().getString("database.user");
         String password = getConfig().getString("database.password");
+
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
 
         databaseManager = new DatabaseManager(url, user, password);
         enderChestManager = new EnderChestManager(databaseManager);

@@ -1,4 +1,6 @@
 database:
-  url: jdbc:mysql://localhost:3306/database
-  user: username
-  password: password
+  host: "localhost"
+  port: "3306"
+  databasename: "databasename"
+  user: "username"
+  password: "password"
