@@ -20,8 +20,8 @@ public class PlayerJoinEventHandler implements Listener {
         Player player = event.getPlayer();
         try {
             enderChestManager.loadEnderChest(player);
-        } catch (SQLException e) {
-            e.printStackTrace();
+       } catch (SQLException e) {
+           e.printStackTrace();
         }
     }
 }

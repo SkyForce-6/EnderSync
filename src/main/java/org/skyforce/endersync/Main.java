@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.skyforce.endersync.EventHandler.InventoryClickEventHandler;
 import org.skyforce.endersync.EventHandler.InventoryCloseEventHandler;
+import org.skyforce.endersync.EventHandler.InventoryOpenEventHandler;
 import org.skyforce.endersync.EventHandler.PlayerJoinEventHandler;
 import org.skyforce.endersync.Managers.DatabaseManager;
 import org.skyforce.endersync.Managers.DatabaseTableManager;
@@ -41,7 +42,7 @@ public final class Main extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-
+        getServer().getPluginManager().registerEvents(new InventoryOpenEventHandler(enderChestManager), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinEventHandler(enderChestManager), this);
         getServer().getPluginManager().registerEvents(new InventoryClickEventHandler(enderChestManager), this);
         getServer().getPluginManager().registerEvents(new InventoryCloseEventHandler(enderChestManager), this);
