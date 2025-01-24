@@ -35,4 +35,8 @@ public class DatabaseTableManager {
         String tableSchema = "uuid VARCHAR(36) NOT NULL, total_exp INT NOT NULL, level INT NOT NULL, exp_progress FLOAT NOT NULL, PRIMARY KEY (uuid)";
         createTableIfNotExists(tableName, tableSchema);
     }
+    public void createVaultTableIfNotExists(String tableName) throws SQLException {
+        String tableSchema = "uuid VARCHAR(36) NOT NULL, balance DOUBLE NOT NULL, PRIMARY KEY (uuid)";
+        createTableIfNotExists(tableName, tableSchema);
+    }
 }

@@ -7,3 +7,4 @@ database:
   enderchesttable: "enderchest"
   inventorytable: "inventory"
   exptable: "exp"
+  vaulttable: "vault"

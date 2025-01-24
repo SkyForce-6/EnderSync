@@ -2,3 +2,4 @@ name: EnderSync
 version: '1.1'
 main: org.skyforce.endersync.Main
 api-version: '1.21'
+depend: [Vault]
