@@ -42,7 +42,7 @@ public final class Main extends JavaPlugin {
         enderChestManager = new EnderChestManager(databaseManager, enderChestTable);
         inventoryManager = new InventoryManager(databaseManager, inventoryTable);
         databaseTableManager = new DatabaseTableManager(databaseManager);
-        expManager = new ExpManager(databaseManager, expTable, getLogger());
+        expManager = new ExpManager(databaseManager, expTable);
 
         try {
             databaseManager.connect();

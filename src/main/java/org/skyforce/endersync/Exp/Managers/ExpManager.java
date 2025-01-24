@@ -7,17 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class ExpManager {
     private final DatabaseManager databaseManager;
     private final String tableName;
-    private final Logger logger;
 
-    public ExpManager(DatabaseManager databaseManager, String tableName, Logger logger) {
+    public ExpManager(DatabaseManager databaseManager, String tableName) {
         this.databaseManager = databaseManager;
         this.tableName = tableName;
-        this.logger = logger;
     }
 
     public void savePlayerExp(Player player) throws SQLException {
@@ -29,9 +26,7 @@ public class ExpManager {
             statement.setInt(3, player.getLevel());
             statement.setFloat(4, player.getExp());
             statement.executeUpdate();
-            logger.info("Saved EXP for player " + player.getName() + ": " + player.getTotalExperience() + ", Level: " + player.getLevel() + ", Exp Progress: " + player.getExp());
         } catch (SQLException e) {
-            logger.severe("Failed to save EXP for player " + player.getName() + ": " + e.getMessage());
             throw e;
         }
     }
@@ -50,14 +45,9 @@ public class ExpManager {
                     player.setTotalExperience(totalExp);
                     player.setLevel(level);
                     player.setExp(expProgress);
-
-                    logger.info("Loaded EXP for player " + player.getName() + ": " + totalExp + ", Level: " + level + ", Exp Progress: " + expProgress);
-                } else {
-                    logger.warning("No EXP found for player " + player.getName());
                 }
             }
         } catch (SQLException e) {
-            logger.severe("Failed to load EXP for player " + player.getName() + ": " + e.getMessage());
             throw e;
         }
     }
