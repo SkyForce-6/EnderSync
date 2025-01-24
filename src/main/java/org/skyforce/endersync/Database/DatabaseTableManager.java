@@ -17,7 +17,7 @@ public class DatabaseTableManager {
         try (Connection connection = databaseManager.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);
-            System.out.println("Table " + tableName + " created or already exists.");
+            System.out.println("\u001B[36m" + "Table " + tableName + " created or already exists." + "\u001B[0m");
         }
     }
 

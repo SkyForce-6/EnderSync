@@ -6,4 +6,4 @@ database:
   password: "password"
   enderchesttable: "enderchest"
   inventorytable: "inventory"
-  exp: "exp"
+  exptable: "exp"

@@ -34,7 +34,7 @@ public final class Main extends JavaPlugin {
         String password = getConfig().getString("database.password");
         String enderChestTable = getConfig().getString("database.enderchesttable");
         String inventoryTable = getConfig().getString("database.inventorytable");
-        String expTable = getConfig().getString("database.exp");
+        String expTable = getConfig().getString("database.exptable");
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
 

@@ -1,4 +1,4 @@
 name: EnderSync
-version: '1.0'
+version: '1.1'
 main: org.skyforce.endersync.Main
 api-version: '1.21'
