@@ -18,7 +18,7 @@ public class ExpManager {
     }
 
     public void savePlayerExp(Player player) throws SQLException {
-        String sql = "REPLACE INTO " + tableName + " (uuid, total_exp, exp_lvl, exp) VALUES (?, ?, ?, ?)";
+        String sql = "REPLACE INTO " + tableName + " (player_uuid, total_exp, exp_lvl, exp) VALUES (?, ?, ?, ?)";
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getUniqueId().toString());
@@ -32,7 +32,7 @@ public class ExpManager {
     }
 
     public void loadPlayerExp(Player player) throws SQLException {
-        String sql = "SELECT total_exp, exp_lvl, exp FROM " + tableName + " WHERE uuid = ?";
+        String sql = "SELECT total_exp, exp_lvl, exp FROM " + tableName + " WHERE player_uuid = ?";
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getUniqueId().toString());

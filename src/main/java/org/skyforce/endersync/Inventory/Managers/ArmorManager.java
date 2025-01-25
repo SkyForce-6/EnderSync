@@ -40,19 +40,19 @@ public class ArmorManager {
 
         // Retrieve the existing inventory value
         String existingInventory = "[]"; // Default empty inventory
-        ResultSet rs = databaseManager.executeQuery("SELECT inventory FROM " + tableName + " WHERE uuid = ?",
+        ResultSet rs = databaseManager.executeQuery("SELECT inventory FROM " + tableName + " WHERE player_uuid = ?",
                 player.getUniqueId().toString());
         if (rs.next()) {
             existingInventory = rs.getString("inventory");
         }
 
         // Perform the REPLACE INTO operation
-        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (uuid, inventory, armor, offhand) VALUES (?, ?, ?, ?)",
+        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (player_uuid, inventory, armor, offhand) VALUES (?, ?, ?, ?)",
                 player.getUniqueId().toString(), existingInventory, encodedArmor, encodedOffhand);
     }
 
     public void loadArmor(Player player) throws SQLException {
-        ResultSet rs = databaseManager.executeQuery("SELECT armor, offhand FROM " + tableName + " WHERE uuid = ?",
+        ResultSet rs = databaseManager.executeQuery("SELECT armor, offhand FROM " + tableName + " WHERE player_uuid = ?",
                 player.getUniqueId().toString());
 
         if (rs.next()) {

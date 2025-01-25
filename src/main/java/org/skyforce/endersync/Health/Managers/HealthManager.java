@@ -17,7 +17,7 @@ public class HealthManager {
     }
 
     public void saveHealth(Player player) throws SQLException {
-        String query = "REPLACE INTO " + tableName + " (uuid, health, foodLevel) VALUES (?, ?, ?)";
+        String query = "REPLACE INTO " + tableName + " (player_uuid, health, foodLevel) VALUES (?, ?, ?)";
         try (PreparedStatement statement = databaseManager.getConnection().prepareStatement(query)) {
             statement.setString(1, player.getUniqueId().toString());
             statement.setDouble(2, player.getHealth());
@@ -27,7 +27,7 @@ public class HealthManager {
     }
 
     public void loadHealth(Player player) throws SQLException {
-        String query = "SELECT health, foodLevel FROM " + tableName + " WHERE uuid = ?";
+        String query = "SELECT health, foodLevel FROM " + tableName + " WHERE player_uuid = ?";
         try (PreparedStatement statement = databaseManager.getConnection().prepareStatement(query)) {
             statement.setString(1, player.getUniqueId().toString());
             try (ResultSet resultSet = statement.executeQuery()) {

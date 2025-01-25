@@ -29,12 +29,12 @@ public class EnderChestManager {
         ItemStack[] items = player.getEnderChest().getContents();
         String encodedItems = encodeItems(items);
 
-        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (uuid, items) VALUES (?, ?)",
+        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (player_uuid, items) VALUES (?, ?)",
                 player.getUniqueId().toString(), encodedItems);
     }
 
     public void loadEnderChest(Player player) throws SQLException {
-        ResultSet rs = databaseManager.executeQuery("SELECT items FROM " + tableName + " WHERE uuid = ?",
+        ResultSet rs = databaseManager.executeQuery("SELECT items FROM " + tableName + " WHERE player_uuid = ?",
                 player.getUniqueId().toString());
 
         if (rs.next()) {

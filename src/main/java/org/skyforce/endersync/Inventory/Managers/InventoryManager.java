@@ -29,12 +29,12 @@ public class InventoryManager {
         ItemStack[] items = player.getInventory().getContents();
         String encodedItems = encodeItems(items);
 
-        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (uuid, inventory) VALUES (?, ?)",
+        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (player_uuid, inventory) VALUES (?, ?)",
                 player.getUniqueId().toString(), encodedItems);
     }
 
     public void loadInventory(Player player) throws SQLException {
-        ResultSet rs = databaseManager.executeQuery("SELECT inventory FROM " + tableName + " WHERE uuid = ?",
+        ResultSet rs = databaseManager.executeQuery("SELECT inventory FROM " + tableName + " WHERE player_uuid = ?",
                 player.getUniqueId().toString());
 
         if (rs.next()) {
