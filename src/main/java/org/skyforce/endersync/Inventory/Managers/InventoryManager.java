@@ -29,18 +29,25 @@ public class InventoryManager {
         ItemStack[] items = player.getInventory().getContents();
         String encodedItems = encodeItems(items);
 
-        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (uuid, items) VALUES (?, ?)",
+        databaseManager.executeUpdate("REPLACE INTO " + tableName + " (uuid, inventory) VALUES (?, ?)",
                 player.getUniqueId().toString(), encodedItems);
     }
 
     public void loadInventory(Player player) throws SQLException {
-        ResultSet rs = databaseManager.executeQuery("SELECT items FROM " + tableName + " WHERE uuid = ?",
+        ResultSet rs = databaseManager.executeQuery("SELECT inventory FROM " + tableName + " WHERE uuid = ?",
                 player.getUniqueId().toString());
 
         if (rs.next()) {
-            String encodedItems = rs.getString("items");
-            ItemStack[] items = decodeItems(encodedItems);
-            player.getInventory().setContents(items);
+            String encodedItems = rs.getString("inventory");
+            if (encodedItems == null) {
+                System.out.println("Error: Encoded inventory is null");
+                player.getInventory().clear(); // Clear inventory if null
+            } else {
+                ItemStack[] items = decodeItems(encodedItems);
+                player.getInventory().setContents(items);
+            }
+        } else {
+            System.out.println("Error: No inventory found for player " + player.getUniqueId().toString());
         }
     }
 
@@ -56,11 +63,24 @@ public class InventoryManager {
     }
 
     private ItemStack[] decodeItems(String data) {
+        if (data == null || data.isEmpty()) {
+            return new ItemStack[36];
+        }
+
         Type listType = new TypeToken<List<ItemData>>() {}.getType();
         List<ItemData> itemDataList = gson.fromJson(data, listType);
+        if (itemDataList == null) {
+            itemDataList = new ArrayList<>();
+        }
+
         ItemStack[] items = new ItemStack[36];
         for (ItemData itemData : itemDataList) {
-            items[itemData.getSlot()] = itemData.getItemStack();
+            int slot = itemData.getSlot();
+            if (slot >= 0 && slot < items.length) {
+                items[slot] = itemData.getItemStack();
+            } else {
+                System.out.println("Warning: Slot " + slot + " is out of bounds for inventory array.");
+            }
         }
         return items;
     }

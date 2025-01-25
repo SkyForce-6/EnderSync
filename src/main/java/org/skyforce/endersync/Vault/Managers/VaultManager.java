@@ -21,7 +21,7 @@ public class VaultManager {
     }
 
     public void savePlayerBalance(Player player) throws SQLException {
-        String sql = "REPLACE INTO " + tableName + " (uuid, balance) VALUES (?, ?)";
+        String sql = "REPLACE INTO " + tableName + " (uuid, money) VALUES (?, ?)";
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getUniqueId().toString());
@@ -31,13 +31,13 @@ public class VaultManager {
     }
 
     public void loadPlayerBalance(Player player) throws SQLException {
-        String sql = "SELECT balance FROM " + tableName + " WHERE uuid = ?";
+        String sql = "SELECT money FROM " + tableName + " WHERE uuid = ?";
         try (Connection connection = databaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, player.getUniqueId().toString());
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    double balance = resultSet.getDouble("balance");
+                    double balance = resultSet.getDouble("money");
                     economy.withdrawPlayer(player, economy.getBalance(player));
                     economy.depositPlayer(player, balance);
                 }

@@ -20,23 +20,27 @@ public class DatabaseTableManager {
             System.out.println("\u001B[36m" + "Table " + tableName + " created or already exists." + "\u001B[0m");
         }
     }
-
     public void createEnderChestTableIfNotExists(String tableName) throws SQLException {
         String tableSchema = "uuid VARCHAR(36) NOT NULL, items TEXT NOT NULL, PRIMARY KEY (uuid)";
         createTableIfNotExists(tableName, tableSchema);
     }
-
     public void createInventoryTableIfNotExists(String tableName) throws SQLException {
-        String tableSchema = "uuid VARCHAR(36) NOT NULL, items TEXT NOT NULL, PRIMARY KEY (uuid)";
+        String tableSchema = "uuid VARCHAR(36) NOT NULL, inventory TEXT NOT NULL, armor TEXT, offhand TEXT, PRIMARY KEY (uuid)";
         createTableIfNotExists(tableName, tableSchema);
     }
-
     public void createExpTableIfNotExists(String tableName) throws SQLException {
-        String tableSchema = "uuid VARCHAR(36) NOT NULL, total_exp INT NOT NULL, level INT NOT NULL, exp_progress FLOAT NOT NULL, PRIMARY KEY (uuid)";
+        String tableSchema = "uuid VARCHAR(36) NOT NULL, total_exp INT NOT NULL, exp_lvl INT NOT NULL, exp FLOAT NOT NULL, PRIMARY KEY (uuid)";
         createTableIfNotExists(tableName, tableSchema);
     }
     public void createVaultTableIfNotExists(String tableName) throws SQLException {
-        String tableSchema = "uuid VARCHAR(36) NOT NULL, balance DOUBLE NOT NULL, PRIMARY KEY (uuid)";
+        String tableSchema = "uuid VARCHAR(36) NOT NULL, money DOUBLE NOT NULL, PRIMARY KEY (uuid)";
         createTableIfNotExists(tableName, tableSchema);
+    }
+    public void createHealthTableIfNotExists(String tableName) throws SQLException {
+        String query = "CREATE TABLE IF NOT EXISTS " + tableName + " (" + "uuid VARCHAR(36) PRIMARY KEY, " + "health DOUBLE, " + "foodLevel INT)";
+        try (Statement statement = databaseManager.getConnection().createStatement()) {
+            statement.executeUpdate(query);
+            System.out.println("\u001B[36m" + "Table " + tableName + " created or already exists." + "\u001B[0m");
+        }
     }
 }

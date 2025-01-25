@@ -8,3 +8,4 @@ database:
   inventorytable: "inventory"
   exptable: "exp"
   vaulttable: "vault"
+  healthtable: "health"
